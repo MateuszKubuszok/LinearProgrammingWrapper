@@ -9,6 +9,7 @@
 #include "lpw/row.hpp"
 #include "lpw/column.hpp"
 #include "lpw/value.hpp"
+#include "lpw/solution.hpp"
 
 namespace LPW {
 
@@ -25,24 +26,17 @@ public:
     ImplementationType impl = ImplementationType::Default,
     CostFunctionGoal goal = CostFunctionGoal::Minimize,
     std::string name = "");
+
   static std::shared_ptr<LPProblem> CreateShared(
     ImplementationType impl = ImplementationType::Default,
     CostFunctionGoal goal = CostFunctionGoal::Minimize,
     std::string name = "");
 
-  CostFunctionGoal Goal() const {
-    return goal_;
-  }
-  CostFunctionGoal& Goal() {
-    return goal_;
-  }
+  CostFunctionGoal GetGoal() const { return goal_; }
+  void SetGoal(CostFunctionGoal goal) { goal_ = goal; }
 
-  std::string Name() const {
-    return name_;
-  }
-  std::string& Name() {
-    return name_;
-  }
+  std::string Name() const { return name_; }
+  void Name(std::string name) { name_ = name; }
 
   RowPtr CreateRow(BoundsPtr bounds, std::string name = "");
 
@@ -50,7 +44,7 @@ public:
 
   ValuePtr AddValue(RowPtr row, ColumnPtr column, double value = 0.0);
 
-  Solution Solve() const = 0;
+  virtual Solution Solve() const = 0;
 
 protected:
   LPProblem(CostFunctionGoal goal, std::string name) :
@@ -60,7 +54,6 @@ protected:
     columns_(),
     values_()
     {}
-
 };  // class LPProblem
 
 }  // namespace LPW

@@ -6,15 +6,15 @@ namespace {
 
 class Unbounded : public Bounds {
 public:
-  BoundType GetType() const override {
+  virtual BoundType GetType() const override {
   	return BoundType::Unbounded;
   }
 
-  double GetLowerBound() const override {
+  virtual double GetLowerBound() const override {
     return 0.0;
   }
 
-  double GetUpperBound() const override {
+  virtual double GetUpperBound() const override {
     return 0.0;
   }
 };
@@ -27,15 +27,15 @@ public:
     lower_bound_(lower_bound)
     {}
 
-  BoundType GetType() const override {
+  virtual BoundType GetType() const override {
   	return BoundType::LowerBound;
   }
 
-  double GetLowerBound() const override {
+  virtual double GetLowerBound() const override {
     return lower_bound_;
   }
 
-  double GetUpperBound() const override {
+  virtual double GetUpperBound() const override {
     return 0.0;
   }
 };
@@ -48,15 +48,15 @@ public:
     upper_bound_(upper_bound)
     {}
 
-  BoundType GetType() const override {
+  virtual BoundType GetType() const override {
   	return BoundType::UpperBound;
   }
 
-  double GetLowerBound() const override {
+  virtual double GetLowerBound() const override {
     return 0.0;
   }
 
-  double GetUpperBound() const override {
+  virtual double GetUpperBound() const override {
     return upper_bound_;
   }
 };
@@ -71,15 +71,15 @@ public:
     upper_bound_(upper_bound)
     {}
 
-  BoundType GetType() const override {
+  virtual BoundType GetType() const override {
   	return BoundType::Range;
   }
 
-  double GetLowerBound() const override {
+  virtual double GetLowerBound() const override {
     return lower_bound_;
   }
 
-  double GetUpperBound() const override {
+  virtual double GetUpperBound() const override {
     return upper_bound_;
   }
 };
@@ -92,15 +92,15 @@ public:
     fixed_point_(fixed_point)
     {}
 
-  BoundType GetType() const override {
+  virtual BoundType GetType() const override {
   	return BoundType::FixedPoint;
   }
 
-  double GetLowerBound() const override {
+  virtual double GetLowerBound() const override {
     return fixed_point_;
   }
 
-  double GetUpperBound() const override {
+  virtual double GetUpperBound() const override {
     return fixed_point_;
   }
 };

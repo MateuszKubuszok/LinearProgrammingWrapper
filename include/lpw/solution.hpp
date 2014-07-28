@@ -8,22 +8,23 @@
 namespace LPW {
 
 class Solution {
+public:
   typedef std::vector<double> ValuesRow;
   typedef std::vector<ValuesRow> Values;
 
-  const SolutionType type_;
-  const Values values_;
-
-public:
   Solution(SolutionType type) :
     type_(type),
-    values_(),
+    values_()
     {}
 
   Solution(SolutionType type, Values values) :
     type_(type),
-    values_(row_number),
+    values_(values)
     {}
+
+private:
+  const SolutionType type_;
+  const Values values_;
 };  // class Solution
 
 }  // namespace LPW

@@ -1,8 +1,6 @@
 #ifndef LPW_COMMON_HPP_
 #define LPW_COMMON_HPP_
 
-#define GLPK_AVAILABLE // todo remove this in final version
-
 #ifdef GLPK_AVAILABLE
 #ifndef LP_AVAILABLE_
 #define LP_AVAILABLE_

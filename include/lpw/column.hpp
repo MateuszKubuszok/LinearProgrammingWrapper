@@ -5,8 +5,11 @@
 #include <string>
 
 #include "lpw/common.hpp"
+#include "lpw/bounds.hpp"
 
 namespace LPW {
+
+class LPProblem;
 
 class Column;
 typedef std::shared_ptr<Column> ColumnPtr;
@@ -18,16 +21,16 @@ class Column {
   std::string name_;
 
 public:
-  size_t ColumnNumber() const { return column_number_; }
+  size_t GetColumnNumber() const { return column_number_; }
 
-  double Coefficient() const { return coefficient_; }
-  double& Coefficient()  { return coefficient_; }
+  double GetCoefficient() const { return coefficient_; }
+  void SetCoefficient(double coefficient)  { coefficient_ = coefficient; }
 
-  std::string Name() const { return name_; }
-  std::string& Name() { return name_; }
+  std::string GetName() const { return name_; }
+  void SetName(std::string name) { name_ = name; }
 
 private:
-  friend ColumnPtr std::make_shared<Column>(size_t, BoundsPtr, double, std::string);
+  friend LPProblem;
   Column(
       size_t column_number,
       BoundsPtr bounds,

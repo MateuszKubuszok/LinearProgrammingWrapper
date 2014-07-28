@@ -12,10 +12,10 @@ LPProblem* CreateRaw(
     std::string name) {
   switch(impl):
   
-  #ifdef GLPK_AVAILABLE
+#ifdef GLPK_AVAILABLE
   case ImplementationType::GLPK:
     return new GlpProblem(goal, name);
-  #endif  // GLPK_AVAILABLE
+#endif  // GLPK_AVAILABLE
 
   default:
     // assert(false);
@@ -24,14 +24,14 @@ LPProblem* CreateRaw(
 
 }  // namespace
 
-static std::unique_ptr<LPProblem> CreateUnique(
+std::unique_ptr<LPProblem> LPProblem::CreateUnique(
     ImplementationType impl,
     CostFunctionGoal goal,
     std::string name) {
   return std::unique_ptr<LPProblem>(CreateRaw(impl, goal, name));
 }
 
-static std::shared_ptr<LPProblem> CreateShared(
+std::shared_ptr<LPProblem> LPProblem::CreateShared(
     ImplementationType impl,
     CostFunctionGoal goal
     std::string name) {
@@ -39,19 +39,19 @@ static std::shared_ptr<LPProblem> CreateShared(
 }
 
 RowPtr LPProblem::CreateRow(BoundsPtr bounds, std::string name) {
-  RowPtr row = std::make_shared<Row>(rows_.size(), bounds, name);
+  RowPtr row = std::shared_ptr<Row>(new Row(rows_.size(), bounds, name));
   rows_.push_back( row );
   return row;
 }
 
 ColumnPtr LPProblem::CreateColumn(BoundsPtr bounds, double coefficient, std::string name) {
-  ColumnPtr column = std::make_shared<Column>(columns_.size(), bounds, coefficient, name);
+  ColumnPtr column = std::shared_ptr<Column>(new Column(columns_.size(), bounds, coefficient, name));
   columns_.push_back( column );
   return column;
 }
 
 ValuePtr LPProblem::AddValue(RowPtr row, ColumnPtr column, double value) {
-  ValuePtr value = std::make_shared<Value>(row, column, value);
+  ValuePtr value = std::shared_ptr<Value>(new Value(row, column, value));
   values_.push_back( value );
   return value;
 }

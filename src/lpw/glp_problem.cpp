@@ -1,8 +1,8 @@
-#include "lpw/glp_problem.hpp"
-#ifdef  GLPK_AVAILABLE
+#ifdef GLPK_AVAILABLE
 
 #include <cstdlib>
-#include <glpk.h>
+
+#include "lpw/glp_problem.hpp"
 
 namespace LPW {
 
@@ -12,13 +12,13 @@ void FreeGLPK() {
   glp_free_env();
 }
 
-glp_prob_ptr CreateProblem() {
+GlpProblem::glp_prob_ptr CreateProblem() {
   bool glpk_initialized = false;
   if (!glpk_initialized) {
     std::atexit(FreeGLPK);
     glpk_initialized = true;
   }
-  return glp_prob_ptr(glp_create_prob(), glp_delete_prob);
+  return GlpProblem::glp_prob_ptr(glp_create_prob(), glp_delete_prob);
 }
 
 int Map(CostFunctionGoal goal) {
@@ -44,7 +44,7 @@ int Map(BoundType type) {
   case BoundType::Range:
     return GLP_DB;
   case BoundType::FixedPoint:
-    return GLP_FP;
+    return GLP_FX;
   default:
     // assert(false);
     return 0;
@@ -67,17 +67,17 @@ int Map(VariableType type) {
 
 int Map(SolutionType type) {
   switch(type) {
-  case Solution::Optimal:
+  case SolutionType::Optimal:
     return GLP_OPT;
-  case Solution::Feasible:
+  case SolutionType::Feasible:
     return GLP_FEAS;
-  case Solution::Infeasible:
+  case SolutionType::Infeasible:
     return GLP_INFEAS;
-  case Solution::NoFeasible:
+  case SolutionType::NoFeasible:
     return GLP_NOFEAS;
-  case Solution::Unbounded:
+  case SolutionType::Unbounded:
     return GLP_UNBND;
-  case Solution::Undefined:
+  case SolutionType::Undefined:
     return GLP_UNDEF;
   default:
     // assert(false);

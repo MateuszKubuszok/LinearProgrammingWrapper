@@ -5,8 +5,11 @@
 #include <string>
 
 #include "lpw/common.hpp"
+#include "lpw/bounds.hpp"
 
 namespace LPW {
+
+class LPProblem;
 
 class Row;
 typedef std::shared_ptr<Row> RowPtr;
@@ -17,13 +20,13 @@ class Row {
   std::string name_;
 
 public:
-  size_t RowNumber() const { return row_number_; }
+  size_t GetRowNumber() const { return row_number_; }
 
-  std::string Name() const { return name_; }
-  std::string& Name() { return name_; }
+  std::string GetName() const { return name_; }
+  void SetName(std::string name) { name_ = name; }
 
 private:
-  friend RowPtr std::make_shared<Row>(size_t, BoundsPtr, std::string);
+  friend LPProblem;
   Row(size_t row_number, BoundsPtr bounds, std::string name) :
     row_number_(row_number),
     bounds_(bounds),

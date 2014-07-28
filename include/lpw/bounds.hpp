@@ -1,12 +1,14 @@
 #ifndef LPW_BOUNDS_HPP_
 #define LPW_BOUNDS_HPP_
 
+#include <memory>
+
 #include "lpw/common.hpp"
 
 namespace LPW {
 
 class Bounds;
-typedef  std::shared_ptr<Bounds> BoundsPtr;
+typedef std::shared_ptr<Bounds> BoundsPtr;
 class Bounds {
 public:
   static BoundsPtr CreateUnbounded();
@@ -15,9 +17,9 @@ public:
   static BoundsPtr CreateRange(double lower_bound, double upper_bound);
   static BoundsPtr CreateFixed(double fixed);
 
-  BoundType GetType() const = 0;
-  double GetLowerBound() const = 0;
-  double GetUpperBound() const = 0;
+  virtual BoundType GetType() const = 0;
+  virtual double GetLowerBound() const = 0;
+  virtual double GetUpperBound() const = 0;
 };  // class Bounds
 
 }  // namespace LPW
