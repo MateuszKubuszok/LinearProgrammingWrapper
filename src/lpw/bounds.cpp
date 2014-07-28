@@ -2,14 +2,12 @@
 
 namespace LPW {
 
-#if GLPK_USED_
-
 namespace {
 
-class Unbounded : Bounds {
+class Unbounded : public Bounds {
 public:
   BoundType GetType() const override {
-  	return GLP_FR;
+  	return BoundType::Unbounded;
   }
 
   double GetLowerBound() const override {
@@ -21,8 +19,8 @@ public:
   }
 };
 
-class LowerBound : Bounds {
-  double lower_bound_;
+class LowerBound : public Bounds {
+  const double lower_bound_;
   
 public:
   explicit LowerBound(double lower_bound) :
@@ -30,7 +28,7 @@ public:
     {}
 
   BoundType GetType() const override {
-  	return GLP_LO;
+  	return BoundType::LowerBound;
   }
 
   double GetLowerBound() const override {
@@ -42,8 +40,8 @@ public:
   }
 };
 
-class UpperBound : Bounds {
-  double upper_bound_;
+class UpperBound : public Bounds {
+  const double upper_bound_;
 
 public:
   explicit UpperBound(double upper_bound) :
@@ -51,7 +49,7 @@ public:
     {}
 
   BoundType GetType() const override {
-  	return GLP_UP;
+  	return BoundType::UpperBound;
   }
 
   double GetLowerBound() const override {
@@ -63,9 +61,9 @@ public:
   }
 };
 
-class Range : Bounds {
-  double lower_bound_;
-  double upper_bound_;
+class Range : public Bounds {
+  const double lower_bound_;
+  const double upper_bound_;
 
 public:
   explicit Range(double lower_bound, double upper_bound) :
@@ -74,7 +72,7 @@ public:
     {}
 
   BoundType GetType() const override {
-  	return GLP_DB;
+  	return BoundType::Range;
   }
 
   double GetLowerBound() const override {
@@ -86,8 +84,8 @@ public:
   }
 };
 
-class FixedPoint : Bounds {
-  double fixed_point_;
+class FixedPoint : public Bounds {
+  const double fixed_point_;
 
 public:
   explicit FixedPoint(double fixed_point) :
@@ -95,7 +93,7 @@ public:
     {}
 
   BoundType GetType() const override {
-  	return GLP_FX;
+  	return BoundType::FixedPoint;
   }
 
   double GetLowerBound() const override {
@@ -128,9 +126,5 @@ BoundsPtr Bounds::CreateRange(double lower_bound, double upper_bound) {
 BoundsPtr Bounds::CreateFixed(double fixed_point) {
   return std::make_shared<FixedPoint>(fixed_point);
 }
-
-#error 
-#else LP library choice required! 
-#endif
 
 }  // namespace LPW

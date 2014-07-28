@@ -5,12 +5,6 @@
 
 namespace LPW {
 
-#if GLPK_USED_
-typedef int BoundType;
-#error 
-#else LP library choice required! 
-#endif
-
 class Bounds;
 typedef  std::shared_ptr<Bounds> BoundsPtr;
 class Bounds {
@@ -28,4 +22,4 @@ public:
 
 }  // namespace LPW
 
-#endif LPW_BOUNDS_HPP_
+#endif  // LPW_BOUNDS_HPP_

@@ -1,38 +1,54 @@
 #ifndef LPW_COMMON_HPP_
 #define LPW_COMMON_HPP_
 
-#define GLPK_USED_
+#define GLPK_AVAILABLE // todo remove this in final version
 
-#include <memory>
-
-#if GLPK_USED_
-#include <glpk.h>
-#error 
-#else LP library choice required! 
+#ifdef GLPK_AVAILABLE
+#ifndef LP_AVAILABLE_
+#define LP_AVAILABLE_
 #endif
+#endif
+
+#ifndef LP_AVAILABLE_
+#error LP library choice required! 
+#endif 
 
 namespace LPW {
 
-/** @brief Alias for GLPK's problem structure. */
-typedef
-#if GLPK_USED_
-  glp_prob
-#else
-#error LP library choice required!
-#endif
-  LPProblemImpl;
+enum class CostFunctionGoal {
+  Minimize,
+  Maximize
+};
 
-/** @brief Defines wrapper with automatic deletion. */
-typedef
-#if GLPK_USED_
-  std::unique_ptr<LPProblem, void(*)(LPProblem*)>
-#else
-#error LP library choice required!
-#endif
-  LPProblemImplPtr;
+enum class BoundType {
+  Unbounded,
+  LowerBound,
+  UpperBound,
+  Range,
+  FixedPoint
+};
 
-/** @brief Pointer to the implementation C structure. */
-LPProblemImplPtr CreateProblemImpl();
+enum class VariableType {
+  Continuous,
+  Integer,
+  Binary
+};
+
+enum class SolutionType {
+  Optimal,
+  Feasible,
+  Infeasible,
+  NoFeasible,
+  Unbounded,
+  Undefined
+};
+
+enum class ImplementationType {
+#ifdef LP_AVAILABLE_
+  GLPK,
+#endif
+  Default = 0
+};
 
 }  // namespace LPW
 
