@@ -6,9 +6,8 @@
 #include <glpk.h>
 
 #include "lpw/lp_problem.hpp"
-#include "lpw/common.hpp"
 
-namespace LPW {	
+namespace LPW {
 
 class GlpProblem : public LPProblem {
 public:
@@ -18,10 +17,10 @@ public:
     LPProblem(goal, name)
     {}
 
-  Solution Solve() const override;
+  virtual Solution Solve() const override;
 };
 
-} namespace  // namespace LPW
+}  // namespace LPW
 
 #endif  // GLPK_AVAILABLE
 #endif  // LPW_GLP_PROBLEM_

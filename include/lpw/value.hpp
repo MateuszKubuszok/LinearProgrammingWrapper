@@ -35,7 +35,6 @@ private:
     {}
 };  // class Value
 
-
 }  // namespace LPW
 
 #endif  // LPW_VALUE_HPP_

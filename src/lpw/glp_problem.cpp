@@ -88,6 +88,13 @@ int Map(SolutionType type) {
 }  // namespace
 
 Solution GlpProblem::Solve() const {
+  // varnings
+  Map(CostFunctionGoal::Minimize);
+  Map(BoundType::Unbounded);
+  Map(VariableType::Continuous);
+  Map(SolutionType::Optimal);
+  CreateProblem();
+
   // TODO
   return SolutionType::Undefined;
 }

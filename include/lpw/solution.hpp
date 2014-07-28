@@ -22,6 +22,10 @@ public:
     values_(values)
     {}
 
+  SolutionType GetSolutionType() const { return type_; }
+
+  Values GetValues() const { return values_; }
+
 private:
   const SolutionType type_;
   const Values values_;

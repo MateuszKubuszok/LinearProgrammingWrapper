@@ -43,7 +43,6 @@ private:
     {}
 };  // class Column
 
-
 }  // namespace LPW
 
 #endif  // LPW_COLUMN_HPP_

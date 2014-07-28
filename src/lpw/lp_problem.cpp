@@ -10,7 +10,7 @@ LPProblem* CreateRaw(
     ImplementationType impl,
     CostFunctionGoal goal,
     std::string name) {
-  switch(impl):
+  switch(impl) {
   
 #ifdef GLPK_AVAILABLE
   case ImplementationType::GLPK:
@@ -20,6 +20,7 @@ LPProblem* CreateRaw(
   default:
     // assert(false);
     return nullptr;
+  }
 }
 
 }  // namespace
@@ -33,7 +34,7 @@ std::unique_ptr<LPProblem> LPProblem::CreateUnique(
 
 std::shared_ptr<LPProblem> LPProblem::CreateShared(
     ImplementationType impl,
-    CostFunctionGoal goal
+    CostFunctionGoal goal,
     std::string name) {
   return std::shared_ptr<LPProblem>(CreateRaw(impl, goal, name));
 }
@@ -50,8 +51,8 @@ ColumnPtr LPProblem::CreateColumn(BoundsPtr bounds, double coefficient, std::str
   return column;
 }
 
-ValuePtr LPProblem::AddValue(RowPtr row, ColumnPtr column, double value) {
-  ValuePtr value = std::shared_ptr<Value>(new Value(row, column, value));
+ValuePtr LPProblem::AddValue(RowPtr row, ColumnPtr column, double inner_value) {
+  ValuePtr value = std::shared_ptr<Value>(new Value(row, column, inner_value));
   values_.push_back( value );
   return value;
 }

@@ -4,8 +4,8 @@
 #ifdef GLPK_AVAILABLE
 #ifndef LP_AVAILABLE_
 #define LP_AVAILABLE_
-#endif
-#endif
+#endif  // LP_AVAILABLE_
+#endif  // GLPK_AVAILABLE
 
 #ifndef LP_AVAILABLE_
 #error LP library choice required! 
@@ -50,4 +50,4 @@ enum class ImplementationType {
 
 }  // namespace LPW
 
-#endif // LPW_COMMON_HPP_
+#endif  // LPW_COMMON_HPP_
