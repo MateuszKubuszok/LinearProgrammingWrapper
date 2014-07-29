@@ -45,8 +45,12 @@ RowPtr LPProblem::CreateRow(BoundsPtr bounds, std::string name) {
   return row;
 }
 
-ColumnPtr LPProblem::CreateColumn(BoundsPtr bounds, double coefficient, std::string name) {
-  ColumnPtr column = std::shared_ptr<Column>(new Column(columns_.size(), bounds, coefficient, name));
+ColumnPtr LPProblem::CreateColumn(BoundsPtr bounds,
+                                  double coefficient,
+                                  VariableType type,
+                                  std::string name) {
+  ColumnPtr column = std::shared_ptr<Column>(
+    new Column(columns_.size(), bounds, coefficient, type, name));
   columns_.push_back( column );
   return column;
 }

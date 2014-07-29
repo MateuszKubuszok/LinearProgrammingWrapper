@@ -14,13 +14,6 @@
 namespace LPW {
 
 class LPProblem {
-  CostFunctionGoal goal_;
-  std::string name_;
-
-  std::vector<RowPtr> rows_;
-  std::vector<ColumnPtr> columns_;
-  std::vector<ValuePtr> values_;
-
 public:
   static std::unique_ptr<LPProblem> CreateUnique(
     ImplementationType impl = ImplementationType::Default,
@@ -40,13 +33,23 @@ public:
 
   RowPtr CreateRow(BoundsPtr bounds, std::string name = "");
 
-  ColumnPtr CreateColumn(BoundsPtr bounds, double coefficient = 0.0, std::string name = "");
+  ColumnPtr CreateColumn(BoundsPtr bounds,
+                         double coefficient = 0.0,
+                         VariableType type = VariableType::Continuous,
+                         std::string name = "");
 
   ValuePtr AddValue(RowPtr row, ColumnPtr column, double value = 0.0);
 
   virtual Solution Solve() const = 0;
 
 protected:
+  CostFunctionGoal goal_;
+  std::string name_;
+
+  std::vector<RowPtr> rows_;
+  std::vector<ColumnPtr> columns_;
+  std::vector<ValuePtr> values_;
+
   LPProblem(CostFunctionGoal goal, std::string name) :
     goal_(goal),
     name_(name),

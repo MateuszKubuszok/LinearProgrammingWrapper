@@ -9,26 +9,30 @@ namespace LPW {
 
 class Solution {
 public:
-  typedef std::vector<double> ValuesRow;
-  typedef std::vector<ValuesRow> Values;
+  typedef std::vector<double> Values;
 
   Solution(SolutionType type) :
     type_(type),
-    values_()
+    primal_values_(),
+    dual_values_()
     {}
 
-  Solution(SolutionType type, Values values) :
+  Solution(SolutionType type, Values primal_values, Values dual_values) :
     type_(type),
-    values_(values)
+    primal_values_(primal_values),
+    dual_values_(dual_values)
     {}
 
   SolutionType GetSolutionType() const { return type_; }
 
-  Values GetValues() const { return values_; }
+  Values GetPrimalValues() const { return primal_values_; }
+
+  Values GetDualValues() const { return dual_values_; }
 
 private:
   const SolutionType type_;
-  const Values values_;
+  const Values primal_values_;
+  const Values dual_values_;
 };  // class Solution
 
 }  // namespace LPW

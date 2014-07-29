@@ -22,6 +22,8 @@ class Row {
 public:
   size_t GetRowNumber() const { return row_number_; }
 
+  BoundsPtr GetBounds() const { return bounds_; }
+
   std::string GetName() const { return name_; }
   void SetName(std::string name) { name_ = name; }
 
