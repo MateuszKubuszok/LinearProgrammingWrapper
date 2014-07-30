@@ -43,9 +43,16 @@ enum class SolutionType {
 
 enum class ImplementationType {
 #ifdef LP_AVAILABLE_
-  GLPK,
+  GLPK = 1,
+# ifndef LPW_DEFAULT_
+#  define LPW_DEFAULT_ GLPK
+# endif
 #endif
-  Default = 0
+
+#ifndef LPW_DEFAULT_
+# define LPW_DEFAULT_ 0
+#endif
+  Default = LPW_DEFAULT_
 };
 
 }  // namespace LPW
